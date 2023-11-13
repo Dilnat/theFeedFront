@@ -1,20 +1,28 @@
 <script setup lang="ts">
   import { useRoute } from 'vue-router'
-  import type {Publication} from "@/types";
   import BoitePublication from "@/components/BoitePublication.vue";
+  import {ref, onMounted } from 'vue'
   const route = useRoute()
   const id = Number(route.params.id)
-  const publication:Publication = {
-    id:id,
-    message:"Hello world !!",
-    datePublication:"2023-09-15T12:02:09.037Z",
+
+  const publication = ref([{
+    id:-1,
+    message:"chargement",
+    datePublication:"",
     auteur:{
-      id:4,
-      adresseEmail:"toto@gouv.fr",
-      login:"toto",
+      id:-1,
+      adresseEmail:"chargement",
+      login:"chargement",
       premium:false
     }
-  };
+  }]);
+  onMounted(() => {
+    fetch('https://webinfo.iutmontp.univ-montp2.fr/~polletm/r5.a.05-programmationavancee-web-td4/public/api/publications/' + id)
+        .then(reponsehttp => reponsehttp.json())
+        .then(reponseJSON => {
+          publication.value = reponseJSON;
+        });
+  })
 </script>
 
 <template>

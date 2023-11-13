@@ -1,20 +1,14 @@
 <script setup lang="ts">
-  import type {Utilisateur} from "@/types";
-  import type {Ref} from "vue";
-  import {ref} from "vue";
   import BoiteUtilisateur from "@/components/BoiteUtilisateur.vue";
-
-  const users:Ref<Utilisateur[]> = ref([{
-    id:4,
-    adresseEmail:"toto@gouv.fr",
-    login:"toto",
-    premium:false
-  },{
-    id:5,
-    adresseEmail:"tony@gouv.fr",
-    login:"tony",
-    premium:false
-  }]);
+  import {ref, onMounted } from 'vue'
+  const users = ref([]);
+  onMounted(() => {
+    fetch('https://webinfo.iutmontp.univ-montp2.fr/~polletm/r5.a.05-programmationavancee-web-td4/public/api/utilisateurs')
+        .then(reponsehttp => reponsehttp.json())
+        .then(reponseJSON => {
+          users.value = reponseJSON["hydra:member"];
+        });
+  })
 </script>
 
 
