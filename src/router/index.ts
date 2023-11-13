@@ -22,6 +22,7 @@ const router = createRouter({
     },
     {
       path:'/feed/:id',
+      name : 'singleMessage',
       component:SingleMessage
     },
     {
