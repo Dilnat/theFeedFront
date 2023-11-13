@@ -6,7 +6,7 @@
 <template>
   <div class="contentBox">
     <div class="top">
-      Profil de {{ utilisateur.login }}
+      Profil de <router-link :to="{name:'singleUser', params:{id:utilisateur.id}}" class="clickable">{{ utilisateur.login }}</router-link>
     </div>
     <div class="content">
       <div class="group">
